@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View, AppRegistry, Image, Alert, NavigatorIOS} from 'react-native';
+import { Button, StyleSheet, Text, View, AppRegistry, Image, Alert, NavigatorIOS, ListView} from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import * as GLOBAL from './Globals';
 
@@ -19,10 +19,10 @@ class HomeScreen extends React.Component {
         return (
 
             <View style={styles.container}>
-                <Image source={require('./10080.png')} style={{width:150, height:150,marginBottom:20}}/>
-                <Text style={styles.text}>Coin Clicker</Text>
+                <Image source={require('./watericon.png')} style={{width:150, height:150,marginBottom:20}}/>
+                <Text style={styles.text}>Omnichow</Text>
                 <Button
-                    onPress={() => navigate('Chat')}
+                    onPress={() => navigate('Store')}
                     title="START"
                     color="white"
                 />
@@ -34,103 +34,28 @@ class HomeScreen extends React.Component {
 }
 
 
-class Clock extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            coins: 0,
-        }
-        setInterval(() => {
-            this.setState({
-                coins: this.state.coins + GLOBAL.MULTIPLY - GLOBAL.SUBTRACT
-            });
-            GLOBAL.COINS = this.state.coins;
-            GLOBAL.SUBTRACT = 0;
-        }, 1000);
-    }
-
-    // increase() {
-    //     setInterval(() => {
-    //         GLOBAL.COINS = GLOBAL.COINS + GLOBAL.MULTIPLY;
-    //     }, 1000);
-    // }
-
-    render() {
-        return (
-            <Text style={styles.text}>{this.state.coins} MONEYS</Text>
-        );
-    }
-}
-
-class ProfileScreen extends React.Component {
-    static navigationOptions = {
-        title: 'Welcome',
-    };
-
-    increaseMultiply() {
-        if (GLOBAL.COINS >= 10) {
-            GLOBAL.MULTIPLY = GLOBAL.MULTIPLY + 1;
-            GLOBAL.SUBTRACT = 10;
-        }
-    }
-    render() {
-        const { navigate } = this.props.navigation;
-        return (
-            <View style={styles.container}>
-                <Clock />
-                {/*<Button*/}
-                    {/*onPress={() => navigate('Store')}*/}
-                    {/*title="STORE"*/}
-                    {/*color="white"*/}
-                {/*/>*/}
-                <Image source={require('./firstchar.png')} style={{width:50, height:50,marginBottom:20,marginLeft:13}}/>
-                <Button
-                    onPress={() => this.increaseMultiply()}
-                    title="Hire One Worker"
-                    color="grey"
-                    style={styles.hireText}
-                />
-            </View>
-
-
-        );
-    }
-}
-
 
 class Store extends React.Component {
-    static navigationOptions = {
-        title: 'Store',
-    };
-
-    increaseMultiply() {
-        if (GLOBAL.COINS >= 10) {
-            GLOBAL.MULTIPLY = GLOBAL.MULTIPLY + 1;
-            GLOBAL.SUBTRACT = 10;
-        }
+    constructor() {
+        super();
+        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.state = {
+            dataSource: ds.cloneWithRows(['row 1', 'row 2']),
+        };
     }
 
     render() {
-        const { navigate } = this.props.navigation;
         return (
-            <View style={styles.container2}>
-                {/*< Clock/>*/}
-                <Image source={require('./firstchar.png')} style={{width:50, height:50,marginBottom:20,marginLeft:13}}/>
-                <Button
-                    onPress={() => this.increaseMultiply()}
-                    title="Hire One Worker"
-                    color="grey"
-                    style={styles.hireText}
-                />
-                {/*<Text style={styles.hireText}>Hire One Worker</Text>*/}
-            </View>
-        );
+            <ListView
+        dataSource={this.state.dataSource}
+        renderRow={(rowData) => <Text>{rowData}</Text>}
+    />
+    );
     }
 }
 
 const SimpleApp = StackNavigator({
     Home: { screen: HomeScreen },
-    Chat: { screen: ProfileScreen },
     Store: { screen: Store },
 });
 
@@ -149,7 +74,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'skyblue'
+        backgroundColor: '#80DEEA'
     },
     container2: {
         flex: 1,
