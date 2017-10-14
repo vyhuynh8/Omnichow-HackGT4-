@@ -18,13 +18,13 @@ class HomeScreen extends React.Component {
         const { navigate } = this.props.navigation;
         return (
 
-            <View style={styles.container}>
-                <Image source={require('./watericon.png')} style={{width:150, height:150,marginBottom:20}}/>
-                <Text style={styles.text}>Omnichow</Text>
+            <View style={styles.splashContainer}>
+                <Image source={require('./broccoli_final.png')} style={{width:150, height:150,marginBottom:20,marginLeft:40}}/>
+                <Text style={styles.text}>omnichow</Text>
                 <Button
                     onPress={() => navigate('Store')}
-                    title="START"
-                    color="white"
+                    title="start"
+                    color="#C8E6C9"
                 />
             </View>
         );
@@ -90,7 +90,8 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 40,
         color: 'white',
-        fontFamily: 'Avenir-Black',
+        fontFamily: 'sans-serif',
+        marginBottom:20
         //fontWeight: '700'
 
     },
@@ -100,9 +101,21 @@ const styles = StyleSheet.create({
         paddingLeft:13,
         fontSize: 20,
         color: 'grey',
-        fontFamily: 'Avenir-Black',
+        fontFamily: 'sans-serif',
         //fontWeight: '700'
+    },
+    
+    splashContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        backgroundColor: '#4CAF50',
+    },
+            
+    splashText: {
+        fontSize: 40,
+        color: '#C8E6C9',
+        fontFamily: 'sans-serif',    
     }
-
-
 });
